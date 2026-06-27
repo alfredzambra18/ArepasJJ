@@ -11,15 +11,12 @@
             --primario: #F57C00;
             --secundario: #FFB300;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Segoe UI', sans-serif;
             background: #FFF8E7;
             padding-bottom: 100px;
         }
-
         .header {
             background: #1A1A1A;
             color: white;
@@ -30,7 +27,6 @@
         }
         .logo { font-size: 1.8rem; font-weight: 900; color: var(--primario); }
         .logo span { color: var(--secundario); }
-
         .btn-admin {
             background: transparent;
             color: #888;
@@ -42,7 +38,6 @@
             transition: 0.3s;
         }
         .btn-admin:hover { background: #333; color: white; }
-
         .hero {
             background: linear-gradient(135deg, var(--primario), var(--secundario));
             color: white;
@@ -52,7 +47,6 @@
             margin-bottom: 30px;
         }
         .hero h1 { font-size: 3rem; font-weight: 900; }
-
         .card-producto {
             border: none;
             border-radius: 20px;
@@ -72,7 +66,6 @@
         .card-producto .card-body { padding: 20px; }
         .card-producto .card-title { font-weight: 800; font-size: 1.2rem; }
         .card-producto .precio { font-weight: 900; color: var(--primario); font-size: 1.4rem; }
-        
         .btn-agregar {
             background: var(--primario);
             color: white;
@@ -85,7 +78,6 @@
             transition: 0.3s;
         }
         .btn-agregar:hover { background: #E65100; }
-
         .cart-floating {
             position: fixed;
             bottom: 25px;
@@ -110,7 +102,6 @@
             padding: 4px 14px;
             font-weight: 700;
         }
-
         .toast-notification {
             position: fixed;
             bottom: 100px;
@@ -125,15 +116,11 @@
             font-weight: 600;
             border-left: 5px solid var(--primario);
         }
-        .toast-notification.show {
-            display: block;
-            animation: slideUp 0.4s ease;
-        }
+        .toast-notification.show { display: block; animation: slideUp 0.4s ease; }
         @keyframes slideUp {
             from { transform: translateX(-50%) translateY(30px); opacity: 0; }
             to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
-
         .admin-panel {
             background: white;
             border-radius: 20px;
@@ -158,7 +145,6 @@
             border-radius: 8px;
         }
         .admin-product-item .info { flex: 1; min-width: 200px; }
-        
         .btn-editar, .btn-eliminar {
             border: none;
             padding: 8px 16px;
@@ -168,7 +154,6 @@
         }
         .btn-editar { background: #FFC107; color: black; }
         .btn-eliminar { background: #DC3545; color: white; }
-
         #previewImagen {
             max-width: 150px;
             max-height: 100px;
@@ -176,7 +161,6 @@
             margin-top: 10px;
             display: none;
         }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .cart-floating { padding: 10px 16px; font-size: 0.9rem; }
@@ -214,7 +198,7 @@
     <span id="toastMessage"></span>
 </div>
 
-<!-- PANEL ADMIN (OCULTO) -->
+<!-- PANEL ADMIN -->
 <section class="container" id="panelAdmin" style="display:none;">
     <div class="admin-panel">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -224,7 +208,6 @@
             </button>
         </div>
 
-        <!-- LOGIN -->
         <div id="adminLogin">
             <p>Ingresa la contraseña para administrar</p>
             <div class="input-group mb-3" style="max-width: 400px;">
@@ -236,10 +219,7 @@
             <div id="loginError" class="text-danger" style="display:none;">❌ Contraseña incorrecta</div>
         </div>
 
-        <!-- CONTENIDO ADMIN -->
         <div id="adminContent" style="display:none;">
-            
-            <!-- FORMULARIO PARA AGREGAR PLATO -->
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 id="formTitulo">
@@ -278,41 +258,30 @@
                 </div>
             </div>
 
-            <!-- LISTA DE PLATOS -->
             <h5><i class="fas fa-list me-2"></i>Platos en el menú</h5>
             <div id="listaAdminProductos"></div>
 
-            <!-- BOTONES -->
             <div class="mt-4 d-flex gap-2">
                 <button class="btn btn-success" onclick="descargarRespaldo()">
-                    <i class="fas fa-download me-1"></i> Descargar respaldo (menu.json)
+                    <i class="fas fa-download me-1"></i> Descargar respaldo
                 </button>
+                <button class="btn btn-outline-warning btn-sm" onclick="document.getElementById('importFile').click()">
+                    <i class="fas fa-upload me-1"></i> Cargar respaldo
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display:none;" onchange="cargarRespaldo(this)">
                 <button class="btn btn-outline-danger btn-sm" onclick="resetearMenu()">
-                    <i class="fas fa-trash me-1"></i> Restaurar menú original
+                    <i class="fas fa-trash me-1"></i> Restaurar menú
                 </button>
-            </div>
-            
-            <div class="alert alert-info mt-3">
-                <i class="fas fa-info-circle me-2"></i>
-                <strong>¿Cómo actualizar la página del cliente?</strong><br>
-                1. Haz los cambios aquí<br>
-                2. Descarga el archivo <strong>menu.json</strong> (botón verde)<br>
-                3. Sube ese archivo a GitHub (misma carpeta que index.html)<br>
-                4. ¡Listo! El cliente ya ve los cambios
             </div>
         </div>
     </div>
 </section>
 
-<!-- MENÚ PÚBLICO -->
-<section class="container mb-5" id="menuPublico">
-    <h2 class="text-center mb-4" style="font-weight:900;">
-        🍽️ Nuestro Menú
-    </h2>
+<!-- MENÚ -->
+<section class="container mb-5">
+    <h2 class="text-center mb-4" style="font-weight:900;">🍽️ Nuestro Menú</h2>
     <div class="row g-4" id="productosContainer">
-        <div class="col-12 text-center">
-            <p>Cargando menú...</p>
-        </div>
+        <div class="col-12 text-center"><p>Cargando menú...</p></div>
     </div>
 </section>
 
@@ -320,7 +289,7 @@
 <div class="cart-floating" data-bs-toggle="modal" data-bs-target="#cartModal">
     <i class="fas fa-shopping-cart fa-lg" style="color: var(--secundario);"></i>
     <span class="badge" id="cartCount">0</span>
-    <span style="font-weight:600;">Ver pedido</span>
+    <span>Ver pedido</span>
     <span class="ms-2" style="color: var(--secundario);">$<span id="cartTotalFloat">0.00</span></span>
 </div>
 
@@ -371,11 +340,10 @@
     // CONFIGURACIÓN (CAMBIA SOLO ESTO)
     // ==========================================
     const CONFIG = {
-        ADMIN_PASSWORD: 'admin123',      // ← Cambia la contraseña aquí
-        WHATSAPP: '584121234567'         // ← Pon el número de WhatsApp real
+        ADMIN_PASSWORD: 'admin123',      // ← CAMBIA ESTA CONTRASEÑA
+        WHATSAPP: '584121234567'         // ← PON EL NÚMERO REAL
     };
 
-    // Menú por defecto
     const MENU_DEFAULT = [
         { id: 1, nombre: "Arepa Reina Pepiada", descripcion: "Pollo desmechado, aguacate, mayonesa y queso", precio: 4.50, imagen: "" },
         { id: 2, nombre: "Arepa Pabellón", descripcion: "Caraotas, carne mechada, plátano y queso", precio: 5.00, imagen: "" },
@@ -385,37 +353,74 @@
         { id: 6, nombre: "Empanadas (3 pzas)", descripcion: "Carne, pollo o queso", precio: 3.50, imagen: "" }
     ];
 
+    let db;
     let productosActuales = [];
     let carrito = [];
 
     // ==========================================
-    // CARGAR MENÚ
+    // BASE DE DATOS (IndexedDB)
     // ==========================================
-    async function cargarMenu() {
-        try {
-            const response = await fetch('menu.json');
-            const data = await response.json();
-            productosActuales = data.productos;
-        } catch (error) {
-            productosActuales = [...MENU_DEFAULT];
+    function abrirDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open('ArepasJJ', 1);
+            request.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains('productos')) {
+                    db.createObjectStore('productos', { keyPath: 'id' });
+                }
+            };
+            request.onsuccess = (e) => {
+                db = e.target.result;
+                resolve();
+            };
+            request.onerror = (e) => reject(e.target.error);
+        });
+    }
+
+    async function obtenerProductos() {
+        return new Promise((resolve) => {
+            const tx = db.transaction('productos', 'readonly');
+            const store = tx.objectStore('productos');
+            const req = store.getAll();
+            req.onsuccess = () => resolve(req.result);
+        });
+    }
+
+    async function guardarProductos(productos) {
+        return new Promise((resolve) => {
+            const tx = db.transaction('productos', 'readwrite');
+            const store = tx.objectStore('productos');
+            store.clear();
+            productos.forEach(p => store.add(p));
+            tx.oncomplete = () => resolve();
+        });
+    }
+
+    // ==========================================
+    // INICIAR
+    // ==========================================
+    async function iniciar() {
+        await abrirDB();
+        let productos = await obtenerProductos();
+        if (!productos || productos.length === 0) {
+            productos = [...MENU_DEFAULT];
+            await guardarProductos(productos);
         }
+        productosActuales = productos;
         renderizarProductos();
     }
 
     function renderizarProductos() {
         const container = document.getElementById('productosContainer');
-        
         if (!productosActuales || productosActuales.length === 0) {
-            container.innerHTML = '<p class="text-center text-muted">No hay platos disponibles</p>';
+            container.innerHTML = '<p class="text-center text-muted">No hay platos</p>';
             return;
         }
-
         container.innerHTML = productosActuales.map(p => `
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card card-producto">
                     <img src="${p.imagen || 'https://via.placeholder.com/400x200/F57C00/FFFFFF?text=' + encodeURIComponent(p.nombre)}" 
-                         alt="${p.nombre}" 
-                         loading="lazy"
+                         alt="${p.nombre}" loading="lazy"
                          onerror="this.src='https://via.placeholder.com/400x200/F57C00/FFFFFF?text=' + encodeURIComponent(p.nombre)">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
@@ -424,9 +429,7 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <span class="precio">$${p.precio.toFixed(2)}</span>
-                            <button class="btn-agregar" onclick="agregarAlCarrito(${p.id})">
-                                ➕ Agregar
-                            </button>
+                            <button class="btn-agregar" onclick="agregarAlCarrito(${p.id})">➕ Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -441,13 +444,11 @@
         document.getElementById('panelAdmin').style.display = 'block';
         document.getElementById('panelAdmin').scrollIntoView({ behavior: 'smooth' });
     }
-
     function cerrarPanelAdmin() {
         document.getElementById('panelAdmin').style.display = 'none';
         document.getElementById('adminLogin').style.display = 'block';
         document.getElementById('adminContent').style.display = 'none';
     }
-
     function loginAdmin() {
         if (document.getElementById('adminPassword').value === CONFIG.ADMIN_PASSWORD) {
             document.getElementById('adminLogin').style.display = 'none';
@@ -458,30 +459,25 @@
             document.getElementById('loginError').style.display = 'block';
         }
     }
-
-    // Enter para login
     document.getElementById('adminPassword').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') loginAdmin();
     });
 
-    // Preview de imagen
     document.getElementById('imagenPlato').addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const preview = document.getElementById('previewImagen');
-                preview.src = e.target.result;
-                preview.style.display = 'block';
+                const img = document.getElementById('previewImagen');
+                img.src = e.target.result;
+                img.style.display = 'block';
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // Guardar producto
     document.getElementById('formProducto').addEventListener('submit', function(e) {
         e.preventDefault();
-        
         const editId = document.getElementById('editId').value;
         const nombre = document.getElementById('nombrePlato').value.trim();
         const descripcion = document.getElementById('descripcionPlato').value.trim();
@@ -493,16 +489,13 @@
             return;
         }
 
-        // Convertir imagen a base64 si hay una nueva
         if (imagenFile) {
             const reader = new FileReader();
             reader.onload = function(event) {
-                const imagenUrl = event.target.result;
-                guardarProducto(editId, nombre, descripcion, precio, imagenUrl);
+                guardarProducto(editId, nombre, descripcion, precio, event.target.result);
             };
             reader.readAsDataURL(imagenFile);
         } else {
-            // Mantener la imagen anterior si está editando
             let imagenActual = '';
             if (editId) {
                 const existente = productosActuales.find(p => p.id === parseInt(editId));
@@ -512,7 +505,7 @@
         }
     });
 
-    function guardarProducto(editId, nombre, descripcion, precio, imagen) {
+    async function guardarProducto(editId, nombre, descripcion, precio, imagen) {
         if (editId) {
             const index = productosActuales.findIndex(p => p.id === parseInt(editId));
             if (index !== -1) {
@@ -527,7 +520,7 @@
             productosActuales.push({ id: nuevoId, nombre, descripcion, precio, imagen });
             mostrarToast('✅ Plato agregado');
         }
-
+        await guardarProductos(productosActuales);
         limpiarFormulario();
         renderizarProductos();
         cargarListaAdmin();
@@ -542,35 +535,26 @@
         document.getElementById('formTitulo').innerHTML = '<i class="fas fa-plus-circle me-2" style="color:var(--primario);"></i>Agregar nuevo plato';
     }
 
-    function cancelarEdicion() {
-        limpiarFormulario();
-    }
+    function cancelarEdicion() { limpiarFormulario(); }
 
     function cargarListaAdmin() {
         const container = document.getElementById('listaAdminProductos');
-        
         if (!productosActuales || productosActuales.length === 0) {
             container.innerHTML = '<p class="text-muted">No hay platos</p>';
             return;
         }
-
         container.innerHTML = productosActuales.map(p => `
             <div class="admin-product-item">
                 <img src="${p.imagen || 'https://via.placeholder.com/80x60/F57C00/FFFFFF?text=🍽️'}" 
-                     alt="${p.nombre}"
-                     onerror="this.src='https://via.placeholder.com/80x60/F57C00/FFFFFF?text=🍽️'">
+                     alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/80x60/F57C00/FFFFFF?text=🍽️'">
                 <div class="info">
                     <strong>${p.nombre}</strong>
                     <span class="text-success ms-2 fw-bold">$${p.precio.toFixed(2)}</span>
                     <br><small class="text-muted">${p.descripcion}</small>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn-editar" onclick="editarProducto(${p.id})">
-                        <i class="fas fa-edit"></i> Editar
-                    </button>
-                    <button class="btn-eliminar" onclick="eliminarProducto(${p.id})">
-                        <i class="fas fa-trash"></i> Eliminar
-                    </button>
+                    <button class="btn-editar" onclick="editarProducto(${p.id})">✏️ Editar</button>
+                    <button class="btn-eliminar" onclick="eliminarProducto(${p.id})">🗑️ Eliminar</button>
                 </div>
             </div>
         `).join('');
@@ -579,7 +563,6 @@
     function editarProducto(id) {
         const p = productosActuales.find(prod => prod.id === id);
         if (!p) return;
-
         document.getElementById('editId').value = p.id;
         document.getElementById('nombrePlato').value = p.nombre;
         document.getElementById('descripcionPlato').value = p.descripcion;
@@ -587,42 +570,57 @@
         document.getElementById('btnGuardar').innerHTML = '<i class="fas fa-save me-2"></i> Actualizar Plato';
         document.getElementById('btnCancelar').style.display = 'inline-block';
         document.getElementById('formTitulo').innerHTML = '<i class="fas fa-edit me-2" style="color:#FFC107;"></i>Editando: ' + p.nombre;
-
         if (p.imagen) {
             document.getElementById('previewImagen').src = p.imagen;
             document.getElementById('previewImagen').style.display = 'block';
         }
-
         document.getElementById('panelAdmin').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function eliminarProducto(id) {
+    async function eliminarProducto(id) {
         if (!confirm('¿Eliminar este plato?')) return;
         productosActuales = productosActuales.filter(p => p.id !== id);
+        await guardarProductos(productosActuales);
         renderizarProductos();
         cargarListaAdmin();
         mostrarToast('🗑️ Plato eliminado');
     }
 
     function descargarRespaldo() {
-        const data = {
-            fecha: new Date().toISOString(),
-            productos: productosActuales
-        };
-        
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+        const blob = new Blob([JSON.stringify(productosActuales, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
-        a.href = url;
-        a.download = 'menu.json';
+        a.href = URL.createObjectURL(blob);
+        a.download = 'respaldo_arepasjj.json';
         a.click();
-        
-        mostrarToast('💾 menu.json descargado. ¡Súbelo a GitHub!');
+        mostrarToast('💾 Respaldo descargado');
     }
 
-    function resetearMenu() {
+    function cargarRespaldo(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (Array.isArray(data) && confirm('¿Cargar este respaldo?')) {
+                    productosActuales = data;
+                    await guardarProductos(productosActuales);
+                    renderizarProductos();
+                    cargarListaAdmin();
+                    mostrarToast('📥 Respaldo cargado');
+                }
+            } catch (err) {
+                alert('Archivo no válido');
+            }
+        };
+        reader.readAsText(file);
+        input.value = '';
+    }
+
+    async function resetearMenu() {
         if (confirm('¿Restaurar menú original?')) {
             productosActuales = [...MENU_DEFAULT];
+            await guardarProductos(productosActuales);
             renderizarProductos();
             cargarListaAdmin();
             mostrarToast('🔄 Menú restaurado');
@@ -630,27 +628,21 @@
     }
 
     // ==========================================
-    // CARRITO DE COMPRAS
+    // CARRITO
     // ==========================================
     function agregarAlCarrito(id) {
         const producto = productosActuales.find(p => p.id === id);
         if (!producto) return;
-
-        const existente = carrito.find(item => item.id === id);
-        if (existente) {
-            existente.cantidad++;
-        } else {
-            carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
-        }
-
+        const existente = carrito.find(i => i.id === id);
+        if (existente) { existente.cantidad++; }
+        else { carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 }); }
         mostrarToast(`✅ ${producto.nombre} agregado`);
         actualizarCarrito();
     }
 
     function actualizarCarrito() {
-        const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-        const count = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
+        const total = carrito.reduce((s, i) => s + (i.precio * i.cantidad), 0);
+        const count = carrito.reduce((s, i) => s + i.cantidad, 0);
         document.getElementById('cartCount').textContent = count;
         document.getElementById('cartTotalFloat').textContent = total.toFixed(2);
         document.getElementById('cartTotalModal').textContent = total.toFixed(2);
@@ -658,18 +650,13 @@
         document.getElementById('deliveryForm').style.display = carrito.length > 0 ? 'block' : 'none';
 
         const container = document.getElementById('cartItemsContainer');
-        
         if (carrito.length === 0) {
             container.innerHTML = '<p class="text-center text-muted">Tu carrito está vacío</p>';
             return;
         }
-
         container.innerHTML = carrito.map(item => `
             <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-light rounded">
-                <div>
-                    <strong>${item.nombre}</strong>
-                    <br><small class="text-muted">$${item.precio.toFixed(2)} c/u</small>
-                </div>
+                <div><strong>${item.nombre}</strong><br><small>$${item.precio.toFixed(2)} c/u</small></div>
                 <div class="d-flex align-items-center gap-3">
                     <button class="btn btn-sm btn-outline-danger" onclick="modificarCantidad(${item.id}, -1)">➖</button>
                     <span class="fw-bold">${item.cantidad}</span>
@@ -688,12 +675,10 @@
         actualizarCarrito();
     }
 
-    // Finalizar pedido
     document.getElementById('btnFinalizar').addEventListener('click', () => {
         const nombre = document.getElementById('clienteNombre').value.trim();
         const tipo = document.getElementById('tipoEntrega').value;
         const direccion = document.getElementById('clienteDireccion').value.trim();
-
         if (!nombre) { alert('Ingresa tu nombre'); return; }
         if (tipo === 'Delivery' && !direccion) { alert('Ingresa la dirección'); return; }
 
@@ -702,16 +687,12 @@
         mensaje += `🛵 *Entrega:* ${tipo === 'Delivery' ? 'A domicilio' : 'Retira en local'}%0A`;
         if (tipo === 'Delivery') mensaje += `📍 *Dirección:* ${direccion}%0A`;
         mensaje += '%0A*--- PEDIDO ---*%0A';
-        
         carrito.forEach((item, i) => {
             mensaje += `${i + 1}. ${item.nombre} x${item.cantidad} = $${(item.precio * item.cantidad).toFixed(2)}%0A`;
         });
-
-        const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+        const total = carrito.reduce((s, i) => s + (i.precio * i.cantidad), 0);
         mensaje += `%0A💰 *TOTAL: $${total.toFixed(2)}*`;
-
         window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${mensaje}`, '_blank');
-
         carrito = [];
         actualizarCarrito();
         document.getElementById('clienteNombre').value = '';
@@ -731,8 +712,7 @@
         toast._timeout = setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
-    // INICIAR
-    cargarMenu();
+    iniciar();
 </script>
 </body>
 </html>
